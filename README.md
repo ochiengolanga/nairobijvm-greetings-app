@@ -1,6 +1,6 @@
 # Dockerizable Spring Greetings Application
 
-This is a simple demo application presented during NairobiJVM's meetup ["From Development to Production: Deploying Java and Scala Apps on Kubernetes"](https://www.meetup.com/nairobi-jvm/events/258119823). It's comprised of a Spring Boot application that exposes a single API that returns a greeting as a string. Cliche. Right? That's needs find its way to Kubernetes. Not so cliche for a Greetings app. Huh?
+This is a simple demo application presented during NairobiJVM's meetup ["From Development to Production: Deploying Java and Scala Apps on Kubernetes"](https://www.meetup.com/nairobi-jvm/events/258119823). It's comprised of a Spring Boot application that exposes a single API that returns a greeting as a string. Cliche. Right? That needs to find its way to Kubernetes. Not so cliche for a Greetings app. Huh?
 
 ### Packaging to jar
 
