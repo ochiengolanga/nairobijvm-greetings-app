@@ -1,0 +1,68 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+plugins {
+	id 'com.google.cloud.tools.jib' version '1.0.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.nairobijvm.k8s'
+version = '0.0.2-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+// gradlew jibDockerBuild -- builds only
+//jib {
+//	allowInsecureRegistries = true
+//	from {
+//		image = 'openjdk:alpine'
+//	}
+//	to {
+//		image = 'nairobijvm/greetings'
+//	}
+//	container {
+//		jvmFlags = ['-Xms512m', '-Xdebug']
+//		mainClass = 'com.nairobijvm.k8s.greetings.GreetingsApplication'
+//		args = []
+//		ports = ['8080/tcp']
+//	}
+//}
+
+// gradlew jib -- builds and pushes
+jib {
+	allowInsecureRegistries = true
+	from {
+		image = 'openjdk:alpine'
+	}
+	to {
+		image = "rancher.praqma.com:5000/greetings:${project.version}"
+		tags = ['rancher.praqma.com', 'latest']
+	}
+	container {
+		jvmFlags = ['-Xms128m', '-Xmx256m', '-Xdebug']
+		mainClass = 'com.nairobijvm.k8s.greetings.GreetingsApplication'
+		args = []
+		ports = ['8080/tcp']
+	}
+}
