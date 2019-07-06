@@ -1,8 +1,10 @@
 package com.nairobijvm.k8s.greetings;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -15,12 +17,16 @@ public class GreetingsApplication {
 	}
 
 	@RestController
+	@RequestMapping("/")
 	public class GreetingsController {
+
+		@Value("${greetings.salutation}")
+		private String salutation;
+
 		@GetMapping
 		public String sayHello() {
-			return "Ayeiya! The date today is " + new Date();
+			return salutation + " The date today is " + new Date();
 		}
 	}
 
 }
-

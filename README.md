@@ -4,42 +4,51 @@ This is a simple demo application presented during NairobiJVM's meetup ["From De
 
 ### Packaging to jar
 
-```sh
+```bash
 $ ./gradlew build
 ```
 
 Build and skip tests...
 
-```sh
+```bash
 $ ./gradlew build -x test
 ```
 
 Test application....
-```sh
+```bash
 $ curl localhost:8080
 ```
 
 ### Packaging to Docker image using gradle plugin jib
 
-```sh
+```bash
 $ ./gradlew jibDockerBuild
 ```
+
 List docker images....
-```sh
+```bash
 $ docker images
 ```
+
 Running a container from the docker image....
-```sh
+```bash
 $ docker run --name greetings-app -p 8080:8080 -d nairobijvm/greetings
 ```
+
+or with an environment variable
+
+```bash
+$ docker run --name greetings-app -p 8080:8080 --env GREETINGS_SALUTATION=Niaje! -d greetings
+```
+
 Test application....
-```sh
+```bash
 $ curl localhost:8080
 ```
 
 ### Packaging to Docker image and Push to a registry using gradle plugin jib
 
-```sh
+```bash
 $ ./gradlew jib
 ```
 Pull and use [registry:v2](https://hub.docker.com/_/registry) to quicky setup a local docker image registry.

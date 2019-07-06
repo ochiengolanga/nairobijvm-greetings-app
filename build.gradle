@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.2.RELEASE'
+		springBootVersion = '2.1.6.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -11,7 +11,7 @@ buildscript {
 }
 
 plugins {
-	id 'com.google.cloud.tools.jib' version '1.0.0'
+	id 'com.google.cloud.tools.jib' version '1.3.0'
 }
 
 apply plugin: 'java'
@@ -19,7 +19,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.nairobijvm.k8s'
-version = '0.0.2-SNAPSHOT'
+version = '0.0.3-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -38,12 +38,13 @@ jib {
 		image = 'openjdk:alpine'
 	}
 	to {
-		image = "localhost:5000/greetings:${project.version}"
+		image = "greetings:${project.version}"
 		tags = ['localhost', 'latest']
 	}
 	container {
 		jvmFlags = ['-Xms128m', '-Xmx256m', '-Xdebug']
 		mainClass = 'com.nairobijvm.k8s.greetings.GreetingsApplication'
+		environment = [GREETINGS_SALUTATION:'Greetings!']
 		args = []
 		ports = ['8080/tcp']
 	}
